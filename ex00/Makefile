@@ -6,13 +6,13 @@
 #    By: pdrettas <pdrettas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/12 19:34:05 by pdrettas          #+#    #+#              #
-#    Updated: 2025/11/12 19:34:26 by pdrettas         ###   ########.fr        #
+#    Updated: 2025/11/15 18:01:46 by pdrettas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ex00
 
-SRC			=	./main.cpp
+SRC			=	./main.cpp ./Fixed.cpp
 				
 OBJ			=	$(SRC:.cpp=.o)
 			
