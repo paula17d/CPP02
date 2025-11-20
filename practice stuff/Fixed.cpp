@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:58:49 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/20 19:38:35 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/20 19:48:40 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,26 @@ int Fixed::toInt(void) const
 An overload of the insertion («) operator that inserts a floating-point representation
 of the fixed-point number into the output stream object passed as a parameter.
 */
-void operator<<(std::ostream &out_stream, Fixed const &fixed)
+std::ostream &operator<<(std::ostream &out_stream, Fixed const &fixed)
 {
     out_stream << fixed.toFloat();
+    return out_stream;
+}
+
+void operator<<(Fixed const& p, int const z)
+{
+    int a = p.getRawBits();
+    if (a > z)
+        std::cout << "a is bigger than z" << std::endl;
+    else if (a < z)
+        std::cout << "a is smaller than z" << std::endl;   
+}
+
+Fixed operator>>(Fixed const& p, int z)
+{
+    Fixed x(99);
+    
+    // b = b - 1;
+    std::cout << "paula is hot " << std::endl;
+    return x;
 }

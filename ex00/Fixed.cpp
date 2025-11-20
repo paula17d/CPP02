@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pdrettas <pdrettas@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:58:49 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/15 19:34:42 by pdrettas         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:24:01 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,18 @@ Fixed::Fixed() :
 }
 
 // copy constructor
-Fixed::Fixed(Fixed &og)
+Fixed::Fixed(const Fixed &og)
 {
     std::cout << "Copy constructor called" << std::endl;
     this->_fixedPointNum = og.getRawBits();
 }
 
 // a copy assignment operator overload
-Fixed& Fixed::operator= (Fixed &og)
+Fixed& Fixed::operator= (const Fixed &og)
 {
     std::cout << "Copy assignment operator called" << std::endl;
-    this->_fixedPointNum = og.getRawBits();
+    if (this != &og) // adress = address
+        this->_fixedPointNum = og.getRawBits();
     return *this;
 }
 
