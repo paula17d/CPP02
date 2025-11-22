@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:58:49 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/22 16:12:07 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/22 19:58:48 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ Fixed::Fixed(float const num)
 }
 
 // a copy assignment operator overload
-Fixed& Fixed::operator= (const Fixed &og)
+Fixed& Fixed::operator=(const Fixed &og)
 {
     std::cout << "Copy assignment operator called" << std::endl;
     if (this != &og)
@@ -103,9 +103,10 @@ int Fixed::toInt(void) const
 An overload of the insertion («) operator that inserts a floating-point representation
 of the fixed-point number into the output stream object passed as a parameter.
 */
-void operator<<(std::ostream &out_stream, Fixed const &fixed)
+std::ostream& operator<<(std::ostream &out_stream, Fixed const &fixed)
 {
     out_stream << fixed.toFloat();
+    return out_stream;
 }
 
 // The 6 comparison operators: >, <, >=, <=, ==, and !=
@@ -157,3 +158,49 @@ bool Fixed::operator!=(Fixed const &fixed)
         return false;
 }
 
+// The 4 arithmetic operators: +, -, *, and /
+Fixed Fixed::operator+(Fixed const &fixed)
+{
+    Fixed result(this->toFloat() + fixed.toFloat());
+    return result;
+}
+
+Fixed Fixed::operator-(Fixed const &fixed)
+{
+    Fixed result(this->toFloat() - fixed.toFloat());
+    return result;
+}
+
+Fixed Fixed::operator*(Fixed const &fixed)
+{
+    Fixed result(this->toFloat() * fixed.toFloat());
+    return result;
+}
+
+Fixed Fixed::operator/(Fixed const &fixed)
+{
+    Fixed result(this->toFloat() / fixed.toFloat());
+    return result;
+}
+
+/*
+The 4 increment/decrement (pre-increment and post-increment, pre-decrement and
+post-decrement) operators, which will increase or decrease the fixed-point value by
+the smallest representable ϵ, such that 1 + ϵ > 1.
+*/
+/*
+Operator   Syntax  Who is left	    Who is right
+Prefix ++a	++a	   a (the object)	none
+Postfix a++	a++	   a (the object)	int dummy
+Stream std::cout << a	std::cout << a	std::cout	a
+
+So in a++, a is technically “left” because it’s the object 
+calling the operator — the (int) is just a marker for postfix.
+*/
+
+//pre-increment 
+Fixed Fixed::operator++(void)
+{
+    this->_fixedPointNum++;
+    return *this;
+}

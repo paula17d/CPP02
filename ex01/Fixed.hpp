@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:53:31 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/20 19:38:47 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/22 16:47:37 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ class Fixed
         int toInt(void) const;
 };
 
-void operator<<(std::ostream &out_stream, Fixed const &fixed);
+std::ostream& operator<<(std::ostream &out_stream, Fixed const &fixed);
 
 #endif
