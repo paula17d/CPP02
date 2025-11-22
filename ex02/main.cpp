@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 19:40:12 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/20 20:26:10 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/22 16:10:36 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 int main( void ) 
 {
-    Fixed a(8);
+    Fixed a(3);
     Fixed b(2);
 
-    if (a > b)
+    if (a > b) 
         std::cout << "a bigger than b" << std::endl;
-    
+    if (a < b)
+        std::cout << "a smaller than b" << std::endl;
+    if (a >= b)
+        std::cout << "a bigger than/equal to b" << std::endl;
+    if (a <= b)
+        std::cout << "a smaller than/equal to b" << std::endl;
+    if (a == b)
+        std::cout << "a equal to b" << std::endl;
+    if (a != b)
+        std::cout << "a does not equal b" << std::endl;
+        
     return 0;
 }
 

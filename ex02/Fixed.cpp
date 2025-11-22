@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:58:49 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/20 20:26:53 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/22 16:12:07 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void operator<<(std::ostream &out_stream, Fixed const &fixed)
     out_stream << fixed.toFloat();
 }
 
+// The 6 comparison operators: >, <, >=, <=, ==, and !=
 bool Fixed::operator>(Fixed const &fixed)
 {
     if (this->getRawBits() > fixed.getRawBits())
@@ -115,3 +116,44 @@ bool Fixed::operator>(Fixed const &fixed)
     else 
         return false;
 }
+
+bool Fixed::operator<(Fixed const &fixed)
+{
+    if (this->getRawBits() < fixed.getRawBits())
+        return true;
+    else
+        return false;
+}
+
+bool Fixed::operator>=(Fixed const &fixed)
+{
+    if (this->getRawBits() >= fixed.getRawBits())
+        return true;
+    else
+        return false;
+}
+
+bool Fixed::operator<=(Fixed const &fixed)
+{
+    if (this->getRawBits() <= fixed.getRawBits())
+        return true;
+    else
+        return false;
+}
+
+bool Fixed::operator==(Fixed const &fixed)
+{
+    if (this->getRawBits() == fixed.getRawBits())
+        return true;
+    else
+        return false;
+}
+
+bool Fixed::operator!=(Fixed const &fixed)
+{
+    if (this->getRawBits() != fixed.getRawBits())
+        return true;
+    else
+        return false;
+}
+
