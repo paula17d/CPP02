@@ -6,7 +6,7 @@
 /*   By: pauladrettas <pauladrettas@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:58:49 by pdrettas          #+#    #+#             */
-/*   Updated: 2025/11/22 19:58:48 by pauladretta      ###   ########.fr       */
+/*   Updated: 2025/11/23 18:08:52 by pauladretta      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 Fixed::Fixed() : 
     _fixedPointNum(0)
 {
-    std::cout << "Default constructor called" << std::endl;
+    // std::cout << "Default constructor called" << std::endl;
 }
 
 // copy constructor
 Fixed::Fixed(const Fixed &og)
 {
-    std::cout << "Copy constructor called" << std::endl;
+    // std::cout << "Copy constructor called" << std::endl;
     this->_fixedPointNum = og.getRawBits();
 }
 
@@ -34,7 +34,7 @@ should be initialized to 8, like in exercise 00.
 */
 Fixed::Fixed(int const num)
 {
-    std::cout << "Int constructor called" << std::endl;
+    // std::cout << "Int constructor called" << std::endl;
     this->_fixedPointNum = num << this->_fractionalBits;
 }
 
@@ -47,14 +47,14 @@ should be initialized to 8, like in exercise 00.
 */
 Fixed::Fixed(float const num)
 {
-    std::cout << "Float constructor called" << std::endl;
+    // std::cout << "Float constructor called" << std::endl;
     this->_fixedPointNum = roundf(num * (1 << this->_fractionalBits));
 }
 
 // a copy assignment operator overload
 Fixed& Fixed::operator=(const Fixed &og)
 {
-    std::cout << "Copy assignment operator called" << std::endl;
+    // std::cout << "Copy assignment operator called" << std::endl;
     if (this != &og)
         this->_fixedPointNum = og.getRawBits();
     return *this;
@@ -63,13 +63,13 @@ Fixed& Fixed::operator=(const Fixed &og)
 // deconstructor
 Fixed::~Fixed()
 {
-    std::cout << "Deconstructor called" << std::endl;
+    // std::cout << "Deconstructor called" << std::endl;
 }
 
 // returns the raw value of the fixed-point value
 int Fixed::getRawBits(void) const
 {
-    std::cout << "getRawBits member function called" << std::endl;
+    // std::cout << "getRawBits member function called" << std::endl;
     return this->_fixedPointNum;
 }
 
@@ -110,17 +110,17 @@ std::ostream& operator<<(std::ostream &out_stream, Fixed const &fixed)
 }
 
 // The 6 comparison operators: >, <, >=, <=, ==, and !=
-bool Fixed::operator>(Fixed const &fixed)
+bool Fixed::operator>(Fixed const &fixed) const
 {
-    if (this->getRawBits() > fixed.getRawBits())
+    if (this->toFloat() > fixed.toFloat())
         return true;
     else 
         return false;
 }
 
-bool Fixed::operator<(Fixed const &fixed)
+bool Fixed::operator<(Fixed const &fixed) const
 {
-    if (this->getRawBits() < fixed.getRawBits())
+    if (this->toFloat() < fixed.toFloat())
         return true;
     else
         return false;
@@ -128,7 +128,7 @@ bool Fixed::operator<(Fixed const &fixed)
 
 bool Fixed::operator>=(Fixed const &fixed)
 {
-    if (this->getRawBits() >= fixed.getRawBits())
+    if (this->toFloat() >= fixed.toFloat())
         return true;
     else
         return false;
@@ -136,7 +136,7 @@ bool Fixed::operator>=(Fixed const &fixed)
 
 bool Fixed::operator<=(Fixed const &fixed)
 {
-    if (this->getRawBits() <= fixed.getRawBits())
+    if (this->toFloat() <= fixed.toFloat())
         return true;
     else
         return false;
@@ -144,7 +144,7 @@ bool Fixed::operator<=(Fixed const &fixed)
 
 bool Fixed::operator==(Fixed const &fixed)
 {
-    if (this->getRawBits() == fixed.getRawBits())
+    if (this->toFloat() == fixed.toFloat())
         return true;
     else
         return false;
@@ -152,7 +152,7 @@ bool Fixed::operator==(Fixed const &fixed)
 
 bool Fixed::operator!=(Fixed const &fixed)
 {
-    if (this->getRawBits() != fixed.getRawBits())
+    if (this->toFloat() != fixed.toFloat())
         return true;
     else
         return false;
@@ -196,11 +196,85 @@ Stream std::cout << a	std::cout << a	std::cout	a
 
 So in a++, a is technically “left” because it’s the object 
 calling the operator — the (int) is just a marker for postfix.
-*/
 
-//pre-increment 
-Fixed Fixed::operator++(void)
+/*
+pre-increment (++a)
+- increases the value of a by 1
+- then gives/returns the new number
+-> increment first, then use new value
+*/ 
+Fixed &Fixed::operator++(void)
 {
     this->_fixedPointNum++;
     return *this;
+}
+
+Fixed &Fixed::operator--(void)
+{
+    this->_fixedPointNum--;
+    return *this;
+}
+
+/*
+post-increment (a++)
+- gives the current value of a
+- then increase current a by 1
+-> use old value first, then increment
+*/
+Fixed Fixed::operator++(int)
+{
+    Fixed x = *this;
+    this->_fixedPointNum++;
+    return x;
+}
+
+Fixed Fixed::operator--(int)
+{
+    Fixed x = *this;
+    this->_fixedPointNum--;
+    return x;
+}
+
+/*
+takes two references to fixed-point numbers as
+parameters, and returns a reference to the smallest one.
+*/
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+    if (a < b)
+        return a;
+    else
+        return b; 
+}
+
+/*
+takes two references to constant fixed-point numbers 
+as parameters, and returns a reference to the smallest one.
+*/
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+{
+    if (a < b)
+        return a;
+    else
+        return b; 
+}
+
+/*
+takes two references to fixed-point numbers as
+parameters, and returns a reference to the greatest one.
+*/
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+{
+    if (a > b)
+        return a;
+    else
+        return b;
 }
